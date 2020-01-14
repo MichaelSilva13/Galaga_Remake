@@ -17,6 +17,8 @@ public class PlayerInput : MonoBehaviour
 
     [SerializeField] private GameObject _explosion;
 
+    public string horizontal = "Horizontal", vertical = "Vertical", fire = "Fire1";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +30,8 @@ public class PlayerInput : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float x = Input.GetAxisRaw("Horizontal") * _speed;
-        float y = Input.GetAxisRaw("Vertical") * _speed;
+        float x = Input.GetAxisRaw(horizontal) * _speed;
+        float y = Input.GetAxisRaw(vertical) * _speed;
         
         Vector2 mvt = new Vector2(x, y);
         _rigidbody.velocity = mvt;
@@ -37,7 +39,7 @@ public class PlayerInput : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (Input.GetButtonDown("Fire1") && _life.alive)
+        if (Input.GetButtonDown(fire) && _life.alive)
         {
             GameObject projectile = GameObjectPoolController.Dequeue("player_missile").gameObject;
             projectile.SetActive(true);

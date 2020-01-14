@@ -10,8 +10,8 @@ public class EnemyMvt : MonoBehaviour
     [SerializeField] private PathCreator mainPath;
     private Rigidbody2D _rigidbody2D;
     private float distTravelled = 0f;
-    private const float MARGIN = 0.15f;
-    private PathCreator attackPath;
+    private const float MARGIN = 0.5f;
+    public PathCreator attackPath;
     [SerializeField] public float attackTimer = 3f, shootCooldown = 1f, missileForce = 10f;
     [SerializeField] public float _speed = 5f, attackSpeed = 5f;
     [SerializeField] private int burstAmmount = 3;
@@ -75,24 +75,26 @@ public class EnemyMvt : MonoBehaviour
             else
             {
                 _dirrection = finalPosition.position - transform.position;
+                
                 _rigidbody2D.velocity = _dirrection.normalized * _speed;
+                
                 float angle = Mathf.Atan2(_dirrection.y, _dirrection.x) * Mathf.Rad2Deg;
                 Quaternion wanted = Quaternion.Euler(new Vector3(0, 0, angle - 90));
                 transform.rotation = Quaternion.Lerp(transform.rotation, wanted, Time.deltaTime * 3f);
-            }
-
-            if (Math.Abs(_dirrection.magnitude) <= MARGIN)
-            {
-                Transform attTransform = attackPath.transform;
-                attTransform.parent = transform;
-                attTransform.position = transform.position;
-                attTransform.rotation = Quaternion.Euler(0, 0 ,0);
-                positionned = true;
-                _rigidbody2D.velocity = Vector2.zero;
-                transform.parent = finalPosition;
-                transform.position = finalPosition.position;
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-                StartCoroutine(AttackCoolDown());
+                
+                if (Math.Abs(_dirrection.magnitude) <= MARGIN)
+                {
+                    Transform attTransform = attackPath.transform;
+                    attTransform.parent = transform;
+                    attTransform.position = transform.position;
+                    attTransform.rotation = Quaternion.Euler(0, 0 ,0);
+                    positionned = true;
+                    _rigidbody2D.velocity = Vector2.zero;
+                    transform.parent = finalPosition;
+                    transform.position = finalPosition.position;
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+                    StartCoroutine(AttackCoolDown());
+                }
             }
         }
         else

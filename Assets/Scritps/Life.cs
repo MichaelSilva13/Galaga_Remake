@@ -29,6 +29,7 @@ public class Life : MonoBehaviour
         _spawner._enemyAmmount--;
         _spawner.clonesPresent[GetComponent<Poolable>().key]--;
         _controller.Score += pointValue;
+        GetComponent<EnemyMvt>().attackPath.transform.parent = transform;
         FindObjectOfType<EnemyGrid>().FreeSpace(GetComponent<EnemyMvt>().finalPosition);
     }
 

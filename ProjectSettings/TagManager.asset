@@ -8,6 +8,8 @@ TagManager:
   - Path
   - EnemySound
   - Cursor
+  - lifeP1
+  - lifeP2
   layers:
   - Default
   - TransparentFX

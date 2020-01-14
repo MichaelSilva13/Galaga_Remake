@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerLife : Life
 {
     [SerializeField] private int lifeCount = 3;
+    public string liveTag = "lifeP1";
 
     public int LifeCount
     {
@@ -29,10 +30,23 @@ public class PlayerLife : Life
 
     private SpriteRenderer _sprite;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        if (!_collider)
+        {
+            _collider = GetComponent<Collider2D>();
+        }
+        _collider.enabled = true;
+        _spawner = FindObjectOfType<EnemySpawner>();
+        _controller = FindObjectOfType<GameController>();
+        _collider = GetComponent<Collider2D>();
         _sprite = GetComponent<SpriteRenderer>();
-        livesImages = FindObjectsOfType<Image>();
+        GameObject[] liveObjects = GameObject.FindGameObjectsWithTag(this.liveTag);
+        livesImages = new Image[lifeCount];
+        for (int i = 0; i < lifeCount; i++)
+        {
+            livesImages[i] = liveObjects[i].GetComponent<Image>();
+        }
     }
     
     public override void Death()
@@ -71,7 +85,18 @@ public class PlayerLife : Life
             _collider.enabled = true;
             alive = true;
             GameObjectPoolController.Enqueue(GetComponent<Poolable>());
-            _controller.ChangeState<GameOverState>();
+
+            if(!_controller.player2 || (!_controller.alive1 || !_controller.alive2))
+                _controller.ChangeState<GameOverState>();
+            
+            if (liveTag.Equals("lifeP1"))
+            {
+                _controller.alive1 = false;
+            }
+            else
+            {
+                _controller.alive2 = false;
+            }
         }
     }
 

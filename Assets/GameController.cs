@@ -10,10 +10,15 @@ public class GameController : MonoBehaviour
     protected GameState _previousState;
     protected bool _inTransition;
     public int credits = 0;
+    public int credits2 = 0;
+    public bool player2;
     public GameObject PressStart;
     public GameObject LifeCounter;
+    public GameObject LifeCounter2;
         [SerializeField]
     private float _delta, _speed;
+
+    public bool alive1 = true, alive2 = true;
 
     [SerializeField] private Text levelText;
 
@@ -68,7 +73,7 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private List<Vector2> _positions = new List<Vector2>();
 
-    [SerializeField] private GameObject _player;
+    [SerializeField] private GameObject _player, _player2;
 
 
     // private AbstractCharacter _character;
@@ -153,9 +158,16 @@ public class GameController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(Input.GetButtonDown("Cancel"))
+        if(Input.GetButtonDown("credit1"))
         {
             credits++;
+            coinSound.Play();
+            if(homeSound.isPlaying)
+                homeSound.Stop();
+        }
+        if(Input.GetButtonDown("credit2"))
+        {
+            credits2++;
             coinSound.Play();
             if(homeSound.isPlaying)
                 homeSound.Stop();
@@ -165,6 +177,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         GameObjectPoolController.AddEntry("Player", _player, 1, 3);
+        GameObjectPoolController.AddEntry("Player2", _player2, 1, 3);
         Score = 0;
         ChangeState<HomeState>();
         

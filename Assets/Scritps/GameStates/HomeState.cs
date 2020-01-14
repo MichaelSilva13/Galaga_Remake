@@ -24,12 +24,18 @@ public class HomeState : GameState
         _owner.Level = 1;
         _owner.WelcomeScreen.SetActive(true);
         _owner.LifeCounter.SetActive(false);
+        _owner.LifeCounter2.SetActive(false);
     }
 
     public override void Exit()
     {
         _owner.credits--;
         _owner.PressStart.SetActive(false);
+        if (_owner.credits2 > 0)
+        {
+            _owner.credits2--;
+            _owner.player2 = true;
+        }
         inputEnabled = false;
     }
 

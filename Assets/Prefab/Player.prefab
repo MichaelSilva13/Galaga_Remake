@@ -103,6 +103,9 @@ MonoBehaviour:
   _missileSpeed: 20
   _explosion: {fileID: 4078914812576769262, guid: 0cbed3eb013a8a44293e82d396740bdb,
     type: 3}
+  horizontal: Horizontal
+  vertical: Vertical
+  fire: Fire1
 --- !u!61 &882237885564200717
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -110,7 +113,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 882237885564200705}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -149,7 +152,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &-6964209323239153617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,5 +168,6 @@ MonoBehaviour:
   _poolableKey: playerExplo
   pointValue: 100
   lifeCount: 3
+  liveTag: lifeP1
   alive: 1
   livesImages: []
